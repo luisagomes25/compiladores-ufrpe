@@ -1,4 +1,4 @@
-# Aula 3: Flex + Bison
+# Flex + Bison
 
 Em cada pasta:
 
