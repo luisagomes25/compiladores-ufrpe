@@ -1,0 +1,108 @@
+State 0 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: entrada $end
+
+    1 entrada: /* empty */
+    2        | lista '\n'
+    3        | entrada lista '\n'
+
+    4 lista: NUM
+    5      | lista NUM
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'\n' (10) 2 3
+error (256)
+NUM (258) 4 5
+
+
+Nonterminals, with rules where they appear
+
+$accept (5)
+    on left: 0
+entrada (6)
+    on left: 1 2 3, on right: 0 3
+lista (7)
+    on left: 4 5, on right: 2 3 5
+
+
+state 0
+
+    0 $accept: . entrada $end
+
+    NUM  shift, and go to state 1
+
+    NUM       [reduce using rule 1 (entrada)]
+    $default  reduce using rule 1 (entrada)
+
+    entrada  go to state 2
+    lista    go to state 3
+
+
+state 1
+
+    4 lista: NUM .
+
+    $default  reduce using rule 4 (lista)
+
+
+state 2
+
+    0 $accept: entrada . $end
+    3 entrada: entrada . lista '\n'
+
+    $end  shift, and go to state 4
+    NUM   shift, and go to state 1
+
+    lista  go to state 5
+
+
+state 3
+
+    2 entrada: lista . '\n'
+    5 lista: lista . NUM
+
+    NUM   shift, and go to state 6
+    '\n'  shift, and go to state 7
+
+
+state 4
+
+    0 $accept: entrada $end .
+
+    $default  accept
+
+
+state 5
+
+    3 entrada: entrada lista . '\n'
+    5 lista: lista . NUM
+
+    NUM   shift, and go to state 6
+    '\n'  shift, and go to state 8
+
+
+state 6
+
+    5 lista: lista NUM .
+
+    $default  reduce using rule 5 (lista)
+
+
+state 7
+
+    2 entrada: lista '\n' .
+
+    $default  reduce using rule 2 (entrada)
+
+
+state 8
+
+    3 entrada: entrada lista '\n' .
+
+    $default  reduce using rule 3 (entrada)
